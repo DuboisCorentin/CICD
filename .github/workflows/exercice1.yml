@@ -1,10 +1,10 @@
-name: Valider un projet
+name: Exercice 1 - Valider un projet
 
 on:
   push:      
 
 jobs:
-  hello:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,15 +20,16 @@ jobs:
         uses: actions/cache@v5
         with: 
           path: ~/.npm
-          key: npm -${{ hashFiles('package-lock.json') }}
+          key: npm-${{runner-os}}-${{ hashFiles('package-lock.json') }}
 
       - name: install dependances
-        run: npm install
+        run: npm ci # equivalent de npm install mais mieux car sur d'avoir toujours les meme versions prises dans le package.lock
       
       #- name: Run tests
       #  run: npm run test
       
-      - name: Job Status
+      - if: always()
+        name: Job Status
         run: |
           echo "Status: ${{job.status}}" >> $GITHUB_STEP_SUMMARY
           echo "Commit ID: ${{github.sha}}" >> $GITHUB_STEP_SUMMARY
