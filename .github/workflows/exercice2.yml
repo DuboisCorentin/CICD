@@ -1,0 +1,43 @@
+name: Exercice 2 - Créer un artefact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  exo2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v7
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.21.0
+
+      - name: Put dependances in cache
+        uses: actions/cache@v5
+        with: 
+          path: ~/.npm
+          key: npm -${{ hashFiles('package-lock.json') }}
+
+      - name: install dependances
+        run: npm install
+
+      - name: Create artefact
+        uses: actions/upload-artifact@v7
+        with:
+          name: build
+          path: dist/
+      
+      #- name: Run tests
+      #  run: npm run test
+      
+      - if: always()
+        name: Job Status
+        run: |
+          echo "Status: ${{job.status}}" >> $GITHUB_STEP_SUMMARY
+          echo "Commit ID: ${{github.sha}}" >> $GITHUB_STEP_SUMMARY
+
+    
