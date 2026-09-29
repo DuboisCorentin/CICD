@@ -1,0 +1,11 @@
+name: Hello World
+
+on:
+  push:       # a chaque push
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkouts@v7 # premiere action à faire. Recupere le code
+      - run: echo "Hello World"  # 
