@@ -54,7 +54,7 @@ jobs:
         node: [20, 22]
         os: [ubuntu-latest, windows-latest]
 
-    runs-on: ${{matrix:.os}}
+    runs-on: ${{matrix.os}}
 
     steps:
       - name: get artefact
