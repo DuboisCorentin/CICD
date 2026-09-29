@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: get artefact
-        uses: actions/upload-artifact@v7
+        uses: actions/download-artifact@v7
         with:
           name: application
           path: dist/
