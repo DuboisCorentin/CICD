@@ -63,8 +63,11 @@ jobs:
           name: application
           path: dist/
 
+      - name: Get code
+        uses: actions/checkout@v7
+
       - name: Run tests
-        run: npm run build
+        run: npm run test
 
       - if: always()
         name: Job Status
