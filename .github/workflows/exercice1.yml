@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v5
         with: 
           path: ~/.npm
-          key: npm-${{runner-os}}-${{ hashFiles('package-lock.json') }}
+          key: npm -${{ hashFiles('package-lock.json') }}
 
       - name: install dependances
         run: npm ci # equivalent de npm install mais mieux car sur d'avoir toujours les meme versions prises dans le package.lock
