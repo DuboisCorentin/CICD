@@ -7,7 +7,7 @@ on:
         description: Environnement à déployer
         required: true
         type: choice
-        options: [staging, production]
+        options: [staging, preprod, prod]
 
 permissions:
   contents: read
