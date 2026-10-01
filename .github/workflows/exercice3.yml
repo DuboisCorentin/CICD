@@ -2,6 +2,15 @@ name: Exercice 3 - Envs et Parallélislùe
 
 on:
   workflow_dispatch:
+    inputs: 
+      target:
+        description: Environnement à déployer
+        required: true
+        type: choice
+        options: [staging, production]
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -87,7 +96,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Display ENV
-        run: echo "Deploy to ${{ vars.API_URL }}"
+        run: echo "Deploy to ${{ vars.API_URL }}" >> $GITHUB_STEP_SUMMARY
 
       - if: always()
         name: Job Status
