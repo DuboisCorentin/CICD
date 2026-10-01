@@ -16,14 +16,14 @@ jobs:
         with:
           node-version: 24.21.0
 
+      - name: install dependances
+        run: npm ci
+
       - name: Put dependances in cache
         uses: actions/cache@v5
         with: 
           path: ~/.npm
           key: npm -${{ hashFiles('package-lock.json') }}
-
-      - name: install dependances
-        run: npm ci
 
       - name: run build
         run: npm run build
@@ -41,8 +41,8 @@ jobs:
           name: application
           path: dist/
       
+
       
-  
   test:
     needs: build
 
@@ -69,9 +69,28 @@ jobs:
       - name: Run tests
         run: npm run test
 
+
+  deploy:
+    needs: test
+
+    runs-on: ubuntu-latest
+    environment: vars.API_URL
+
+    steps:
+      - name: get artefact
+        uses: actions/download-artifact@v7
+        with:
+          name: application
+          path: dist/
+
+      - name: Get code
+        uses: actions/checkout@v7
+
+      - name: Display ENV
+        run: echo "Deploy to ${{ vars.API_URL }}"
+
       - if: always()
         name: Job Status
         run: |
           echo "Status: ${{job.status}}" >> $GITHUB_STEP_SUMMARY
           echo "Commit ID: ${{github.sha}}" >> $GITHUB_STEP_SUMMARY
-    
