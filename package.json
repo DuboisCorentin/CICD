@@ -2,7 +2,7 @@
   "name": "cicd",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"run test\"",
     "build": "mkdir -p dist && cp src/* dist/"
