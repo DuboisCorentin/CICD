@@ -95,7 +95,7 @@ jobs:
       - name: Display ENV
         run: echo "Deploy to ${{ vars.API_URL }}" >> $GITHUB_STEP_SUMMARY
 
-      - if: always()
+      - if: always() # de base si un step echoue, le reste ne s'exécute pas. Avec un if always(), ça s'éxécute quand meme
         name: Job Status
         run: |
           echo "Status: ${{job.status}}" >> $GITHUB_STEP_SUMMARY
